@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Catálogo Masculino</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="pagina-catalogo">
+
+<!-- 🔹 NAVBAR -->
+<nav class="navbar navbar-dark bg-dark p-3">
+  <a href="index.php" class="text-white text-decoration-none">⬅ Volver</a>
+  <h5 class="text-white m-0">👕 Catálogo Masculino</h5>
+  <span id="contador-carrito" class="badge bg-light text-dark">0</span>
+</nav>
+
+<!-- 🔹 PRODUCTOS -->
+<div class="container mt-4">
+  <div class="row g-4" id="catalogo"></div>
+</div>
+
+<!-- 🛒 CARRITO LATERAL -->
+<div id="carritoLateral" class="carrito-lateral">
+  <div class="carrito-header">
+    <h5>🛒 Carrito</h5>
+    <button id="cerrarCarrito">✖</button>
+  </div>
+
+  <div id="carrito-items"></div>
+
+  <div class="carrito-footer">
+    <strong>Total: $<span id="carrito-total">0</span></strong>
+    <button id="btnPagar" class="btn btn-success w-100 mt-2">
+      Finalizar compra
+    </button>
+  </div>
+</div>
+
+<!-- 🌫️ OVERLAY -->
+<div id="overlayCarrito" class="overlay-carrito"></div>
+
+<!-- 🛍️ MODAL -->
+<div id="modalProducto" class="modal-producto">
+  <div class="modal-contenido">
+
+    <span id="cerrarModal" class="cerrar-modal">✖</span>
+
+    <div class="modal-body">
+      <img id="modalImg" class="modal-img">
+
+      <div class="modal-info">
+        <h3 id="modalNombre"></h3>
+        <p id="modalPrecio"></p>
+        <p>Producto cómodo, resistente y moderno.</p>
+
+        <button id="modalAgregar" class="btn btn-dark w-100">
+          🛒 Agregar al carrito
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 🛒 BOTÓN FLOTANTE -->
+<div id="toggleMiniCarrito" style="position:fixed; top:10px; right:50px; font-size:25px; cursor:pointer;">
+  🛒
+</div>
+
+<!-- 🔥 PRIMERO: CREAR PRODUCTOS -->
+<script>
+const productos = [
+  {nombre:"Boxer Clásico", precio:35000, img:"https://www.prounderwear.com.co/cdn/shop/files/IMG_0027.png?v=1728011163"},
+  {nombre:"Slip Elegante", precio:32000, img:"https://sydney.pe/wp-content/uploads/2025/02/PM3-COBALTO-1000x1000.jpg"},
+  {nombre:"Trusa Deportiva", precio:29000, img:"https://leonisa.mx/cdn/shop/files/33272N_701_1200x1500_2024_1_400x.jpg"},
+  {nombre:"Camiseta Interior", precio:40000, img:"https://www.patprimo.com/dw/image/v2/BHFM_PRD/on/demandware.static/-/Sites-storefront_catalog_pat/default/dw170e7d5f/images/hi-res/2022-2023/Camiseta%20interior-HOMBRE-44020050-777_2.jpg"}
+];
+
+const contenedor = document.getElementById("catalogo");
+
+productos.forEach(p => {
+  contenedor.innerHTML += `
+    <div class="col-md-3">
+      <div class="card product-card">
+        <div style="position:relative;">
+  <img src="${p.img}" class="card-img-top">
+  <div class="img-overlay"></div>
+  <div class="texto-overlay">Ver producto</div>
+</div>
+
+        <div class="card-body text-center">
+          <h5>${p.nombre}</h5>
+          <p>$${p.precio.toLocaleString()}</p>
+
+          <button class="btn btn-dark agregar-carrito"
+            data-nombre="${p.nombre}"
+            data-precio="${p.precio}">
+            Agregar al carrito
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+});
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
